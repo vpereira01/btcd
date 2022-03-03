@@ -80,11 +80,10 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v2
         
-      - name: cd dockertests
-        run: cd dockertests
-        
       - name: Build dimage
         run: make dimage
+        working-directory: dockertests
         
       - name: Run tests
         run: make test
+        working-directory: dockertests
