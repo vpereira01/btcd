@@ -1,6 +1,6 @@
 # To build this image run on this directory
 #   docker build ./../.. -f btcd-dockertests.Dockerfile -t btcd-dockertests
-# To run this image
+# To run this image without network address
 #   docker run --net none -it btcd-dockertests
 
 #### Build btcd
@@ -16,7 +16,6 @@ RUN go build -o /app/bin/btcd
 FROM alpine:3.12
 
 COPY --from=build-container /app/bin/btcd /app/bin/btcd
-COPY --from=build-container /app/src/dockertests/image/btcd.conf /root/.btcd/
 
 # 8333  Mainnet Bitcoin peer-to-peer port
 # 8334  Mainet RPC port
