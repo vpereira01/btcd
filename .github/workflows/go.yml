@@ -79,10 +79,12 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v2
+
+      - name: Cd to dockertests
+        run: cd dockertests
         
       - name: Build image
         run: make dimage
-      
         
       - name: Run tests
         run: make test
