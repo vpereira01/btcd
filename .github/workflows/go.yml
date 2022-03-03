@@ -8,70 +8,70 @@ env:
   GO_VERSION: 1.17.5
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ env.GO_VERSION }}
+  # build:
+  #   name: Build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Set up Go
+  #       uses: actions/setup-go@v2
+  #       with:
+  #         go-version: ${{ env.GO_VERSION }}
 
-      - name: Check out source
-        uses: actions/checkout@v2
+  #     - name: Check out source
+  #       uses: actions/checkout@v2
 
-      - name: Build
-        run: make build
+  #     - name: Build
+  #       run: make build
 
-  test-cover:
-    name: Unit coverage
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ env.GO_VERSION }}
+  # test-cover:
+  #   name: Unit coverage
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Set up Go
+  #       uses: actions/setup-go@v2
+  #       with:
+  #         go-version: ${{ env.GO_VERSION }}
 
-      - name: Check out source
-        uses: actions/checkout@v2
+  #     - name: Check out source
+  #       uses: actions/checkout@v2
 
-      - name: Test
-        run: make unit-cover
+  #     - name: Test
+  #       run: make unit-cover
 
-      - name: Send top-level coverage
-        uses: shogo82148/actions-goveralls@v1
-        with:
-          path-to-profile: coverage.txt
+  #     - name: Send top-level coverage
+  #       uses: shogo82148/actions-goveralls@v1
+  #       with:
+  #         path-to-profile: coverage.txt
 
-      - name: Send btcec
-        uses: shogo82148/actions-goveralls@v1
-        with:
-          path-to-profile: btcec/coverage.txt
+  #     - name: Send btcec
+  #       uses: shogo82148/actions-goveralls@v1
+  #       with:
+  #         path-to-profile: btcec/coverage.txt
 
-      - name: Send btcutil coverage
-        uses: shogo82148/actions-goveralls@v1
-        with:
-          path-to-profile: btcutil/coverage.txt
+  #     - name: Send btcutil coverage
+  #       uses: shogo82148/actions-goveralls@v1
+  #       with:
+  #         path-to-profile: btcutil/coverage.txt
 
-      - name: Send btcutil coverage for psbt package
-        uses: shogo82148/actions-goveralls@v1
-        with:
-          path-to-profile: btcutil/psbt/coverage.txt
+  #     - name: Send btcutil coverage for psbt package
+  #       uses: shogo82148/actions-goveralls@v1
+  #       with:
+  #         path-to-profile: btcutil/psbt/coverage.txt
 
-  test-race:
-    name: Unit race
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ env.GO_VERSION }}
+  # test-race:
+  #   name: Unit race
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Set up Go
+  #       uses: actions/setup-go@v2
+  #       with:
+  #         go-version: ${{ env.GO_VERSION }}
 
-      - name: Check out source
-        uses: actions/checkout@v2
+  #     - name: Check out source
+  #       uses: actions/checkout@v2
 
-      - name: Test
-        run: make unit-race
+  #     - name: Test
+  #       run: make unit-race
 
   dockertests:
     name: Docker tests
@@ -79,12 +79,13 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v2
-
-      - name: Cd to dockertests
-        run: cd dockertests
         
       - name: Build image
-        run: make dimage
+        run:
+          - cd dockertests
+          - make dimage
         
       - name: Run tests
-        run: make test
+        run:
+          - cd dockertests
+          - make test
