@@ -46,7 +46,7 @@ check: test
 
 test: $(DOCKER)
 	@$(call print, "Running tests.")
-	$(GO) test -test.timeout=20m
+	$(GO) test -v -test.timeout=20m
 
 # =========
 # UTILITIES
