@@ -49,7 +49,8 @@ jobs:
         
       - name: Docker buildx and publish
         run: |
-          docker buildx build --platform=${{ env.TPLATFORMS }} \
-          --output "type=image,push=true"
-          -f .github/workflows/Dockerfile \
-          . 
+          docker buildx build \
+            --platform=${{ env.TPLATFORMS }} \
+            --output "type=image,push=true"
+            -f .github/workflows/Dockerfile \
+            . 
