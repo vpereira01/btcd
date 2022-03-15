@@ -7,6 +7,7 @@
 # Build binaries stage
 ###########################
 FROM --platform=$BUILDPLATFORM golang@sha256:db2475a1dbb2149508e5db31d7d77a75e6600d54be645f37681f03f2762169ba AS build
+ADD . /app
 WORKDIR /app
 # Arguments required to build binaries targetting the correct OS and CPU architectures
 ARG TARGETOS TARGETARCH
