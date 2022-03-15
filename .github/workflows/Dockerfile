@@ -11,10 +11,7 @@ WORKDIR /app
 # Arguments required to build binaries targetting the correct OS and CPU architectures
 ARG TARGETOS TARGETARCH
 # Actually building the binaries using caching
-RUN --mount=target=. \
-    --mount=type=cache,target=~/.cache/go-build \
-    --mount=type=cache,target=~/go/pkg \
-    GOOS=$TARGETOS GOARCH=$TARGETARCH go install -v . ./cmd/...
+RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go install -v . ./cmd/...
 
 ###########################
 # Build final image stage
