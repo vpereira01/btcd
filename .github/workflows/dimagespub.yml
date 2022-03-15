@@ -12,7 +12,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  TPLATFORMS: linux/amd64,linux/arm64
+  TPLATFORMS: linux/amd64,linux/arm64,linux/arm,linux/386
 
 jobs:
   build-and-push-image:
