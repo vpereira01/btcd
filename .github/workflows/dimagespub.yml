@@ -51,8 +51,7 @@ jobs:
         run: |
           docker buildx build \ 
             --platform=${{ env.TPLATFORMS }} \
-            --output "type=image,push=true" \
+            --push \
             -f .github/workflows/Dockerfile \
             --tag ${{ steps.meta.outputs.tags }} \
-            --progress=plain \
-            . 
+            --progress=plain .
