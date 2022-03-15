@@ -47,11 +47,11 @@ jobs:
           echo "Flags:     ${{ steps.buildx.outputs.flags }}"
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
         
-      - name: Docker buildx and publish
-        run: |
-          docker buildx build \ 
-            --platform=${{ env.TPLATFORMS }} \
-            --push \
-            -f .github/workflows/Dockerfile \
-            --tag ${{ steps.meta.outputs.tags }} \
-            --progress=plain .
+      - name: Build and push Docker images
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        with:
+          file: .github/workflows/Dockerfile
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: ${{ env.TPLATFORMS }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
