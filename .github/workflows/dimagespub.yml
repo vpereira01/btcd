@@ -1,4 +1,4 @@
-name: Docker container build and publish
+name: Docker images build and publish
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  tplatforms: linux/amd64,linux/arm64
+  TPLATFORMS: linux/amd64,linux/arm64
 
 jobs:
   build-and-push-image:
@@ -38,5 +38,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         
-      - name: Docker buildx
-        run: docker buildx build --platform=linux/amd64,linux/arm64 -f .github/workflows/Dockerfile . 
+      - name: Docker buildx and publish
+        run: docker buildx build \
+          --platform=${{ env.TPLATFORMS }} \
+          --output "type=image,push=true"
+          -f .github/workflows/Dockerfile \
+          . 
