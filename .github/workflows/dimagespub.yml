@@ -23,6 +23,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Docker Setup Buildx
+        id: buildx
         uses: docker/setup-buildx-action@94ab11c41e45d028884a99163086648e898eed25
 
       - name: Log in to the Container registry
@@ -48,8 +49,7 @@ jobs:
         
       - name: Docker buildx and publish
         run: |
-          docker buildx build \
-          --platform=${{ env.TPLATFORMS }} \
+          docker buildx build --platform=${{ env.TPLATFORMS }} \
           --output "type=image,push=true"
           -f .github/workflows/Dockerfile \
           . 
