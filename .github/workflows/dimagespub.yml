@@ -51,6 +51,6 @@ jobs:
         run: |
           docker buildx build --platform=${{ env.TPLATFORMS }} \
             --progress=plain \
-            --output "type=image,push=true"
+            --output "type=image,push=true" \
             -f .github/workflows/Dockerfile \
             . 
