@@ -49,8 +49,10 @@ jobs:
         
       - name: Docker buildx and publish
         run: |
-          docker buildx build --platform=${{ env.TPLATFORMS }} \
-            --progress=plain \
+          docker buildx build \ 
+            --platform=${{ env.TPLATFORMS }} \
             --output "type=image,push=true" \
             -f .github/workflows/Dockerfile \
+            --tag ${{ steps.meta.outputs.tags }} \
+            --progress=plain \
             . 
